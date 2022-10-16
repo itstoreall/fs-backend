@@ -4,6 +4,8 @@
 export const currentDB = 'localhost'; // *
 // export const currentDB = 'heroku'; // *
 
+export const dataPath = './src/db/data';
+
 export const HttpCode = {
   OK: 200,
   CREATED: 201,
