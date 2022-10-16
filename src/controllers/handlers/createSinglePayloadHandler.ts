@@ -1,37 +1,37 @@
 // @ts-nocheck
 import fs from 'fs';
-import { dataPath } from '../../constants';
+import { singlePath } from '../../constants';
 
-const setPath = name => `${dataPath}/${name}.json`;
+const setPath = fileName => `${singlePath}/${fileName}.json`;
 
-const createFile = async data => {
-  const { name, payloadId, payload } = data;
+const createSingleFile = async data => {
+  const { fileName, payloadId, payload } = data;
   fs.writeFileSync(
-    setPath(name),
+    setPath(fileName),
     JSON.stringify({ payloadId, payload }),
     (e, data) => {}
   );
 };
 
-const getFile = async name => {
-  const data = fs.readFileSync(setPath(name), (e, data) => {
+const getFile = async fileName => {
+  const data = fs.readFileSync(setPath(fileName), (e, data) => {
     JSON.parse(data.toString());
   });
   return data.toString();
 };
 
 const createSinglePayloadHandler = async req => {
-  const { name, payloadId, payload } = req.body;
+  const { fileName, payloadId, payload } = req.body;
 
   const data_ = {
-    name: name,
+    fileName: fileName,
     payloadId: payloadId,
     payload: payload,
   };
 
-  await createFile(data_);
+  await createSingleFile(data_);
 
-  const result = await getFile(data_.name);
+  const result = await getFile(data_.fileName);
 
   return JSON.parse(result);
 };
