@@ -1,8 +1,10 @@
 import { Request, Response, NextFunction as Next } from 'express';
+import createPayloadHandler from './handlers/createPayloadHandler';
+import { HttpCode } from '../constants';
 // import sortData from '../helpers/sortData';
 import {
   creareReq,
-  // createRes,
+  createRes,
   // createResLength,
   createResErr,
 } from '../helpers/controllerLogs';
@@ -41,10 +43,11 @@ const createPayload = async (req: Request, res: Response, next: Next) => {
   const name = 'POST payload';
   try {
     creareReq(name);
-    // const response = await createMintHandler(req);
-    // createRes(name, response);
-    // return res.status(typeof response === 'string' ? 400 : 201).json(response);
-    // .json({ status: 'success', code: 201, data: response });
+    const response = await createPayloadHandler(req);
+    createRes(name, response);
+    return res
+      .status(HttpCode.CREATED)
+      .json({ status: 'success', code: HttpCode.CREATED, data: response });
   } catch (err) {
     createResErr(name, err);
     next(err);
