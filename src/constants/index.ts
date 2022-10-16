@@ -4,8 +4,8 @@
 export const currentDB = 'localhost'; // *
 // export const currentDB = 'heroku'; // *
 
-export const singlePath = './src/db/singleData';
-export const multiPath = './src/db/multiData';
+export const singleFile = './src/db/data/singleFile';
+export const multiFile = './src/db/data/multiFile';
 
 export const HttpCode = {
   OK: 200,
