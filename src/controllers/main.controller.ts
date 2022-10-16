@@ -1,5 +1,7 @@
+// @ts-nocheck
 import { Request, Response, NextFunction as Next } from 'express';
 import createSinglePayloadHandler from './handlers/createSinglePayloadHandler';
+import createMultiPayloadHandler from './handlers/createMultiPayloadHandler';
 import { HttpCode } from '../constants';
 // import sortData from '../helpers/sortData';
 import {
@@ -40,14 +42,33 @@ const getPayloadBy = async (req: Request, res: Response, next: Next) => {
 };
 
 const createSinglePayload = async (req: Request, res: Response, next: Next) => {
-  const name = 'POST one payload';
+  const name = 'POST single payload';
   try {
     creareReq(name);
     const response = await createSinglePayloadHandler(req);
     createRes(name, response);
-    return res
-      .status(HttpCode.CREATED)
-      .json({ status: 'success', code: HttpCode.CREATED, data: response });
+    return res.status(HttpCode.CREATED).json({
+      status: 'success',
+      code: HttpCode.CREATED,
+      data: response ? response : null,
+    });
+  } catch (err) {
+    createResErr(name, err);
+    next(err);
+  }
+};
+
+const createMultiPayload = async (req: Request, res: Response, next: Next) => {
+  const name = 'POST multi payload';
+  try {
+    creareReq(name);
+    const response = await createMultiPayloadHandler(req);
+    createRes(name, response);
+    return res.status(HttpCode.CREATED).json({
+      status: 'success',
+      code: HttpCode.CREATED,
+      data: response ? response : null,
+    });
   } catch (err) {
     createResErr(name, err);
     next(err);
@@ -84,6 +105,7 @@ export default {
   getAllPayload,
   getPayloadBy,
   createSinglePayload,
+  createMultiPayload,
   updatePayload,
   deletePayload,
 };
