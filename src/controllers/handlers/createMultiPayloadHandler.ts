@@ -1,8 +1,8 @@
 // @ts-nocheck
 import fs from 'fs';
-import { multiPath } from '../../constants';
+import { multiFile } from '../../constants';
 
-const setPath = fileName => `${multiPath}/${fileName}.json`;
+const setPath = fileName => `${multiFile}/${fileName}.json`;
 const checkFile = fileName => fs.existsSync(setPath(fileName));
 
 const createMultiFile = async data => {

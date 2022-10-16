@@ -1,8 +1,8 @@
 // @ts-nocheck
 import fs from 'fs';
-import { singlePath } from '../../constants';
+import { singleFile } from '../../constants';
 
-const setPath = fileName => `${singlePath}/${fileName}.json`;
+const setPath = fileName => `${singleFile}/${fileName}.json`;
 
 const createSingleFile = async data => {
   const { fileName, payloadId, payload } = data;
