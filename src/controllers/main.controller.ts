@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction as Next } from 'express';
-import createPayloadHandler from './handlers/createPayloadHandler';
+import createSinglePayloadHandler from './handlers/createSinglePayloadHandler';
 import { HttpCode } from '../constants';
 // import sortData from '../helpers/sortData';
 import {
@@ -39,11 +39,11 @@ const getPayloadBy = async (req: Request, res: Response, next: Next) => {
   }
 };
 
-const createPayload = async (req: Request, res: Response, next: Next) => {
-  const name = 'POST payload';
+const createSinglePayload = async (req: Request, res: Response, next: Next) => {
+  const name = 'POST one payload';
   try {
     creareReq(name);
-    const response = await createPayloadHandler(req);
+    const response = await createSinglePayloadHandler(req);
     createRes(name, response);
     return res
       .status(HttpCode.CREATED)
@@ -83,7 +83,7 @@ const deletePayload = async (req: Request, res: Response, next: Next) => {
 export default {
   getAllPayload,
   getPayloadBy,
-  createPayload,
+  createSinglePayload,
   updatePayload,
   deletePayload,
 };
